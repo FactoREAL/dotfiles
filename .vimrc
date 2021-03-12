@@ -1,3 +1,9 @@
+" need install in your system globally:
+" - fzf
+" - ripgrep
+" - bat
+" - Fira Mono Nerd Font  
+
 "syntax on
 
 set re=0 " new regular expression engine
@@ -256,7 +262,7 @@ nnoremap <leader>cl :diffget //3<CR>
 " -- Prettier --
 let g:prettier#exec_cmd_async = 1
 let g:prettier#quickfix_enabled = 0
-autocmd BufWritePre * PrettierAsync
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql PrettierAsync
 
 " -- Floaterm --
 let g:floaterm_position = 'bottom'
