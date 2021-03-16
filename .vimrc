@@ -202,9 +202,6 @@ function! s:show_documentation()
 endfunction
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
-highlight CocErrorHighlight cterm=underline
-highlight CocWarningHighlight cterm=underline
-highlight CocInfoHighlight cterm=underline
 
 " -- FzF --
 map <C-p> :Files<CR>
