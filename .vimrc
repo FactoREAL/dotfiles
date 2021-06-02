@@ -250,7 +250,7 @@ nmap <leader>gh :<C-u>CocList --normal bcommits<CR>
 nmap <leader>gb :<C-u>CocList --normal branches<CR>
 nmap <leader>gl :<C-u>CocList --normal commits --date=format:%d.%m.%Y_%H:%M<CR>
 nmap <leader>gs :<C-u>CocList --normal gstatus<CR>
-nmap <leader>ga :Gblame --date=format:'%Y-%m-%d %H:%M'<CR>
+nmap <leader>ga :G blame --date=format:'%Y-%m-%d %H:%M'<CR>
 nmap ) <Plug>(coc-git-prevchunk)
 nmap ( <Plug>(coc-git-nextchunk)
 nnoremap <leader>ch :diffget //2<CR>
