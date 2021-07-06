@@ -258,7 +258,7 @@ nmap <leader>gz :CocCommand git.chunkUndo<cr>
 nmap <leader>gc <Plug>(coc-git-commit)
 nmap <leader>gh :<C-u>CocList --normal bcommits<CR>
 nmap <leader>gb :<C-u>CocList --normal branches<CR>
-nmap <leader>gl :<C-u>CocList --normal commits --date=format:%d.%m.%Y_%H:%M<CR>
+nmap <leader>gl :<C-u>CocList --normal commits --date=format:'%F_%R'<CR>
 nmap <leader>gs :<C-u>CocList --normal gstatus<CR>
 nmap <leader>ga :G blame --date=format:'%Y-%m-%d %H:%M'<CR>
 nmap ) <Plug>(coc-git-prevchunk)
