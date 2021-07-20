@@ -4,8 +4,6 @@
 " - bat
 " - Fira Mono Nerd Font  
 
-"syntax on
-
 set re=0 " new regular expression engine
 set mouse=a
 set autoindent
@@ -42,16 +40,16 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'sheerun/vim-polyglot'
 Plug 'sainnhe/gruvbox-material'
 Plug 'preservim/nerdtree'
-"Plug 'leafgarland/typescript-vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" в версии 0.0.80 {commit: 443b5e3} исчезает подчеркивание ошибок/ворнингов
+" https://github.com/neoclide/coc.nvim/issues/3200
+Plug 'neoclide/coc.nvim', {'branch': 'release', 'commit': '9d3c40bcb2304cda1697a0d898ce4d8b00e6e170'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-rooter'
-let g:coc_global_extensions = ['coc-tsserver', 'coc-eslint', 'coc-json', 'coc-css', 'coc-cssmodules',
-  \'coc-highlight', 'coc-spell-checker', 'coc-cspell-dicts', 'coc-git', 'coc-pairs', 'coc-snippets',
-  \ 'coc-yaml']
+let g:coc_global_extensions = ['coc-tsserver', 'coc-eslint', 'coc-json', 'coc-css', 'coc-cssmodules', 'coc-highlight',
+ \'coc-spell-checker', 'coc-cspell-dicts', 'coc-git', 'coc-pairs', 'coc-snippets', 'coc-yaml']
 Plug 'tpope/vim-fugitive'
 Plug 'preservim/nerdcommenter'
 Plug 'prettier/vim-prettier'
@@ -63,7 +61,9 @@ set t_Co=256
 set termguicolors
 highlight ColorColumn ctermbg=0 guibg=grey
 let g:gruvbox_material_background = 'hard'
+let g:gruvbox_material_better_performance = 1
 colorscheme gruvbox-material
+
 
 " -- Folding --
 set foldenable
