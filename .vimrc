@@ -42,9 +42,7 @@ Plug 'sainnhe/gruvbox-material'
 Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-" в версии 0.0.80 {commit: 443b5e3} исчезает подчеркивание ошибок/ворнингов
-" https://github.com/neoclide/coc.nvim/issues/3200
-Plug 'neoclide/coc.nvim', {'branch': 'release', 'commit': '9d3c40bcb2304cda1697a0d898ce4d8b00e6e170'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-rooter'
