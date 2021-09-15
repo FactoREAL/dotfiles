@@ -195,7 +195,7 @@ set $m2 #FFF0E0
 
 # startup program
 exec_always feh --bg-scale ~/Pictures/wallpaper.jpg
-exec google-chrome
+exec google-chrome --password-store=gnome
 exec skype
 exec telegram-desktop
 exec flameshot
