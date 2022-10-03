@@ -68,7 +68,7 @@ set foldenable
 set foldmethod=syntax
 set foldlevelstart=2
 set foldtext=FoldText()
-  set foldtext=FoldText()
+  "set foldtext=FoldText()
   function! FoldText()
     let l:lpadding = &fdc
     redir => l:signs
@@ -123,12 +123,14 @@ nnoremap <leader>l :wincmd l<CR>
 nmap <silent><C-h> :bp<CR>
 nmap <silent><C-l> :bn<CR>
 nmap <silent><C-q> :bd<CR>
-nmap <C-_> <plug>NERDCommenterToggle<CR>
-vmap <C-_> <plug>NERDCommenterToggle<CR>
+nmap <C-/> <plug>NERDCommenterToggle<CR>
+vmap <C-/> <plug>NERDCommenterToggle<CR>
+
 " Use <c-space> to trigger completion or actions
+command! -nargs=* -range CocAction :call CocAction('codeActionRange', <line1>, <line2>, <f-args>)
 if has('nvim')
-  inoremap <silent><expr> <C-space> coc#refresh()
-  nmap <C-space> :CocAction<CR>
+  inoremap <silent><expr> <S-space> coc#refresh()
+  nmap <S-space> :CocAction<CR>
 else
   inoremap <silent><expr> <C-@> coc#refresh()
   nmap <C-@> :CocList --normal actions<CR>
@@ -173,22 +175,16 @@ nmap <silent>gd <Plug>(coc-definition)
 nmap <silent>gt <Plug>(coc-type-definition)
 nmap <silent>gr <Plug>(coc-references)
 nmap <leader>rn <Plug>(coc-rename)
-" Use tab for trigger completion with characters ahead and navigate.
-inoremap <silent><expr> <TAB>
-  \ pumvisible() ? "\<C-n>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+
+" Use tab and arrow keys for trigger completion with characters ahead and navigate.
+inoremap <silent><expr> <TAB> coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
+inoremap <silent><expr> <S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+inoremap <silent><expr> <down> coc#pum#visible() ? coc#pum#next(0) : "\<down>"
+inoremap <silent><expr> <up> coc#pum#visible() ? coc#pum#prev(0) : "\<up>"
+
 " Use <cr> to confirm completion
-if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
+inoremap <silent><expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
+
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
@@ -204,6 +200,10 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 " -- FzF --
 map <C-p> :Files<CR>
 map <C-f> :RG<CR>
+map <Leader><C-p> :call FzfCurrentBuffer()<CR>
+" не работает. надо разобраться
+map <Leader><C-f> :call RipGrepCurrentBuffer()<CR>
+
 let $FZF_DEFAULT_COMMAND = 'rg --files --smart-case --hidden -g "!{.git,node_modules,vendor,tests}/*"'
 let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.95, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'bord': 'sharp' } }
 let g:fzf_colors =
@@ -220,6 +220,12 @@ let g:fzf_colors =
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
+
+function! FzfCurrentBuffer()
+    let path = expand('%:p:h')
+    exe ':Files '.path
+endfunction
+
 " Ripgrep :Rg
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
@@ -288,3 +294,4 @@ let g:closetag_regions = {
     \ 'typescript.tsx': 'jsxRegion,tsxRegion',
     \ 'javascript.jsx': 'jsxRegion',
     \ }
+
