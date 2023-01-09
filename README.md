@@ -5,7 +5,7 @@
 Чтобы развернуть конфиг в новой системе необходимо:
 - клонировать репозиторий
 ```bash
-git clone --bare https://github.com/FactoREAL/dotfiles.git $HOME/dotfiles
+git clone --bare git@github.com:FactoREAL/dotfiles.git $HOME/dotfiles
 ```
 - добавить алиас для командной оболочки _(.bashrc, .zshrc)_ ```alias dotfiles='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'```
 - получить актуальные данные из репозитория 
