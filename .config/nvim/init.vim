@@ -58,6 +58,14 @@ Plug 'prettier/vim-prettier'
 Plug 'voldikss/vim-floaterm'
 call plug#end()
 
+function! WhichPlatform() abort
+    if has('win64') || has('win32') || has('win16')
+        return 'WINDOWS'
+    else
+       return toupper(substitute(system('uname'), '\n', '', ''))
+    endif
+endfunction
+
 " -- Theme --
 set t_Co=256
 set termguicolors
@@ -127,14 +135,24 @@ nnoremap <leader>l :wincmd l<CR>
 nmap <silent><C-h> :bp<CR>
 nmap <silent><C-l> :bn<CR>
 nmap <silent><C-q> :bd<CR>
-nmap <C-/> <plug>NERDCommenterToggle<CR>
-vmap <C-/> <plug>NERDCommenterToggle<CR>
+if (WhichPlatform() =~# 'LINUX')
+  nmap <C-_> <plug>NERDCommenterToggle
+  vmap <C-_> <plug>NERDCommenterToggle
+elseif (WhichPlatform() =~# 'DARWIN')
+  nmap <C-/> <plug>NERDCommenterToggle
+  vmap <C-/> <plug>NERDCommenterToggle
+endif
 
 " Use <c-space> to trigger completion or actions
 command! -nargs=* -range CocAction :call CocAction('codeActionRange', <line1>, <line2>, <f-args>)
 if has('nvim')
-  inoremap <silent><expr> <S-space> coc#refresh()
-  nmap <S-space> :CocAction<CR>
+  if (WhichPlatform() =~# 'LINUX')
+    inoremap <silent><expr> <C-space> coc#refresh()
+    nmap <C-space> :CocAction<CR>
+  elseif (WhichPlatform() =~# 'DARWIN')
+    inoremap <silent><expr> <S-space> coc#refresh()
+    nmap <S-space> :CocAction<CR>
+  endif
 else
   inoremap <silent><expr> <C-@> coc#refresh()
   nmap <C-@> :CocList --normal actions<CR>
