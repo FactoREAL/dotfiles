@@ -1,6 +1,6 @@
 # NEEDED DEPENDENCIES:
-# > sudo apt install feh rofi
-# Font Awesome v.5 from official site
+# > sudo apt install feh rofi yad i3blocks
+# Font FiraMono NerdFont Regular
 
 # Should you change your keyboard layout some time, delete
 # this file and re-run i3-config-wizard(1).
@@ -14,7 +14,8 @@ set $mod Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 8
+# font pango: monospace 8
+font pango:FiraMono 8
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -117,9 +118,9 @@ hide_edge_borders smart
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1:"
 set $ws2 "2:"
-set $ws3 "3:︁"
+set $ws3 "3:"
 set $ws4 "4:"
-set $ws5 "5"
+set $ws5 "5:"
 set $ws6 "6"
 
 # switch to workspace
@@ -176,10 +177,11 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-    status_command i3status --config ~/.config/i3/i3status.conf
+    #status_command i3status --config ~/.config/i3/i3status.conf
+    status_command SCRIPT_DIR=~/.config/i3blocks i3blocks 
     position top
-    font pango:DejaVu Sans Mono, Font Awesome 5 Free, Font Awesome 5 Free Brands 12 
-    separator_symbol "  "
+    font pango:FiraMono, DejaVu Sans Mono 12
+    separator_symbol " "
     colors {
         separator #6c71c4
         background #253941
@@ -190,13 +192,18 @@ bar {
         urgent_workspace #d33682 #d33682 #fdf6e3
   }
 }
+
 set $m1 #808080 
 set $m2 #FFF0E0
 
+for_window [class="Yad"] floating enable
+
+# fix keyring issue
+exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=ssh,secrets,pkcs11
 # startup program
 exec_always feh --bg-scale ~/Pictures/wallpaper.jpg
 exec google-chrome --password-store=gnome
-exec skype
+#exec skype
 exec telegram-desktop
 exec flameshot
 
@@ -204,6 +211,6 @@ exec flameshot
 # Check class by using xprop command
 assign [class="Google-chrome"] $ws2
 assign [class="Skype|TelegramDesktop"] $ws3
-assign [class="Org.gnome.Nautilus"] $ws4
+#assign [class="Org.gnome.Nautilus"] $ws4
 assign [class="Wfica"] $ws5 # citrix
 

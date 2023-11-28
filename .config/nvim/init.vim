@@ -68,7 +68,9 @@ endfunction
 
 " -- Theme --
 set t_Co=256
-set termguicolors
+if has('termguicolors')
+  set termguicolors
+endif
 highlight ColorColumn ctermbg=0 guibg=grey
 let g:gruvbox_material_background = 'hard'
 let g:gruvbox_material_better_performance = 1
